@@ -2,12 +2,12 @@ import numpy as np
 import cv2
 import imutils
 import pytesseract
+import os
 from skimage.filters import threshold_local
 from pytesseract import Output
 from matplotlib import pyplot as plt
-from dotenv import load_dotenv, dotenv_values
 
-TESSERACT_PATH = dotenv_values('.env')['TESSERACT_PATH']
+TESSERACT_PATH = os.environ['TESSERACT_PATH']
 
 
 def thresholding(image):
