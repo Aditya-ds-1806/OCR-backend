@@ -11,9 +11,8 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['POST'])
-def hello_world():
+def recognize():
     alignment = bool(int(request.form['alignment']))
-    print(alignment)
     img = request.files['img']
     img.save('./output_imgs/image.png')
     text = recognizeText('./output_imgs/image.png', alignment)
