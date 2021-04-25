@@ -12,6 +12,7 @@ opencv-python = "==4.5.1.48"
 pytesseract = "==0.3.7"
 scikit-image = "==0.18.1"
 gunicorn = "==20.1.0"
+flask-cors = "*"
 
 [dev-packages]
 
