@@ -2,11 +2,10 @@ from flask import Flask, request
 from flask_cors import CORS
 from ocr import recognizeText
 import json
-from os import mkdir
-import os.path as path
+import os
 
-if(not(path.exists('./output_imgs'))):
-    mkdir('./output_imgs')
+if(not(os.path.exists('./output_imgs'))):
+    os.mkdir('./output_imgs')
 
 app = Flask(__name__)
 CORS(app, resources=r'/')
@@ -14,8 +13,13 @@ CORS(app, resources=r'/')
 
 @app.route('/', methods=['POST'])
 def recognize():
-    alignment = bool(int(request.form['alignment']))
+    opts = {
+        'alignment': bool(int(request.form['alignment'])),
+        'gaussian': bool(int(request.form['gaussian'])),
+        'ed': bool(int(request.form['ed'])),
+        'median': bool(int(request.form['median']))
+    }
     img = request.files['img']
     img.save('./output_imgs/image.png')
-    text = recognizeText('./output_imgs/image.png', alignment)
+    text = recognizeText('./output_imgs/image.png', opts)
     return json.dumps({'text': text})

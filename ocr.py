@@ -18,7 +18,7 @@ def get_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
-def performDocumentAlignment(image):
+def performDocumentAlignment(image, opts):
     row, col = image.shape[:2]
     bottom = image[row-2:row, 0:col]
     mean = cv2.mean(bottom)[0]
@@ -38,7 +38,8 @@ def performDocumentAlignment(image):
     orig = image.copy()
     image = imutils.resize(image, height=500)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)
+    if(opts['gaussian']):
+        gray = cv2.GaussianBlur(gray, (5, 5), 0)
     edged = cv2.Canny(gray, 75, 200)
 
     # edge detection
@@ -63,8 +64,9 @@ def performDocumentAlignment(image):
     )
     warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
     kernel = np.ones((1, 1), np.uint8)
-    warped = cv2.dilate(warped, kernel, iterations=2)
-    warped = cv2.erode(warped, kernel, iterations=2)
+    if(opts['ed']):
+        warped = cv2.dilate(warped, kernel, iterations=2)
+        warped = cv2.erode(warped, kernel, iterations=2)
     T = threshold_local(warped, 11, offset=10, method='gaussian')
     warped = (warped > T).astype('uint8') * 255
     image = warped
@@ -104,8 +106,10 @@ def four_point_transform(image, pts):
     return warped
 
 
-def ocr(image):
+def ocr(image, median):
     gray = get_grayscale(image)
+    if(median):
+        gray = cv2.medianBlur(gray, 3)
     warped = thresholding(gray)
     warped = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     T = threshold_local(warped, 11, offset=10, method='gaussian')
@@ -116,8 +120,8 @@ def ocr(image):
     return text
 
 
-def recognizeText(path, alignment=False):
+def recognizeText(path, opts):
     image = cv2.imread(path)
-    if(alignment):
-        image = performDocumentAlignment(image)
-    return ocr(image)
+    if(opts['alignment']):
+        image = performDocumentAlignment(image, opts)
+    return ocr(image, opts['median'])
