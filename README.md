@@ -29,3 +29,6 @@ responds with:
   "text": "some text here"
 }
 ```
+
+# Credits
+OCR code modified from: https://github.com/v1gneshn/DocScanner
