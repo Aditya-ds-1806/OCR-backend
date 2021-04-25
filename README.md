@@ -20,7 +20,7 @@ It has only one `POST` route which looks for the following parameters in the bod
 # Example with cURL
 
 ```bash
-curl -F "img=@./output_imgs/image.png" -F "alignment=1" -F "gaussian=1" -F "ed=1" -F "median=0" http://tesseract-ocr-backend.herokuapp.com
+curl -F "img=@/path/to/image.png" -F "alignment=1" -F "gaussian=1" -F "ed=1" -F "median=0" http://tesseract-ocr-backend.herokuapp.com
 ```
 responds with:
 
