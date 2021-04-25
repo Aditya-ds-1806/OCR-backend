@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from ocr import recognizeText
 import json
 from os import mkdir
@@ -8,6 +9,7 @@ if(not(path.exists('./output_imgs'))):
     mkdir('./output_imgs')
 
 app = Flask(__name__)
+CORS(app, resources=r'/')
 
 
 @app.route('/', methods=['POST'])
