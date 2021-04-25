@@ -2,7 +2,10 @@
 Flask API for OCR front end available at https://github.com/Aditya-ds-1806/OCR
 
 # Usage
-It has only one POST route which looks for the following parameters in the body:
+
+**Endpoint**: http://tesseract-ocr-backend.herokuapp.com
+
+It has only one `POST` route which looks for the following parameters in the body:
 
 `img`: image file (binary)
 
