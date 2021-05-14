@@ -1,6 +1,8 @@
 # OCR-backend
 Flask API for OCR front end available at https://github.com/Aditya-ds-1806/OCR
 
+Sometimes the request might timeout since I am using Heroku's free hosting services. You can try after some time.
+
 # Usage
 
 **Endpoint**: http://tesseract-ocr-backend.herokuapp.com
