@@ -7,7 +7,7 @@ from skimage.filters import threshold_local
 from pytesseract import Output
 from matplotlib import pyplot as plt
 
-TESSERACT_PATH = os.environ['TESSERACT_PATH']
+# TESSERACT_PATH = os.environ['TESSERACT_PATH']
 
 
 def thresholding(image):
@@ -114,7 +114,7 @@ def ocr(image, median):
     warped = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     T = threshold_local(warped, 11, offset=10, method='gaussian')
     warped = (warped > T).astype('uint8') * 255
-    pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+    # pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
     custom_config = r'--oem 3 --psm 6'
     text = pytesseract.image_to_string(warped, config=custom_config)
     return text
