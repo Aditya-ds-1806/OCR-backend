@@ -1,3 +1,4 @@
 [phases.setup]
 nixPkgs = ['...', 'tesseract4']
+[phases.build]
 cmds = ['export TESSERACT_PATH=$(which tesseract)', 'echo $TESSERACT_PATH']
